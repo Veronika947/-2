@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Угадай персонажа</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="flash"></div>
+
+  <main class="game">
+    <header>
+      <h1>Угадай персонажа</h1>
+      <div class="stats">
+        <span>Счёт: <b id="score">0</b> / <b id="total">0</b></span>
+        <span class="timer">⏱ <b id="time">30</b></span>
+      </div>
+      <div class="bar"><div id="timebar"></div></div>
+    </header>
+
+    <!-- Стартовый экран -->
+    <section id="start" class="screen active">
+      <p>Тебе покажут три подсказки. За 30 секунд угадай, о каком персонаже речь.<br>
+         Ошибся или не успел — загорится красный свет, и игра начнётся заново.</p>
+      <button class="big" id="startBtn">Начать</button>
+    </section>
+
+    <!-- Игровой экран -->
+    <section id="play" class="screen">
+      <div class="clues" id="clues"></div>
+      <div class="options" id="options"></div>
+    </section>
+
+    <!-- Экран результата -->
+    <section id="end" class="screen">
+      <h2 id="endTitle"></h2>
+      <p id="endText"></p>
+      <button class="big" id="restartBtn">Играть снова</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

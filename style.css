@@ -1,0 +1,117 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2b0f2e, #5a1846, #1d0b2a);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.game {
+  width: 100%;
+  max-width: 820px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 28px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+h1 { text-align: center; font-size: 2rem; color: #ffb3d9; margin-bottom: 12px; }
+
+.stats { display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 8px; }
+.timer b { color: #ffd166; }
+
+.bar { height: 8px; background: rgba(255,255,255,0.15); border-radius: 4px; overflow: hidden; margin-bottom: 24px; }
+#timebar { height: 100%; width: 100%; background: linear-gradient(90deg, #ff6fb5, #ffd166); transition: width 1s linear; }
+#timebar.low { background: #ff3b3b; }
+
+.screen { display: none; text-align: center; }
+.screen.active { display: block; }
+.screen p { line-height: 1.6; margin-bottom: 24px; opacity: 0.9; }
+
+/* Подсказки */
+.clues { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+
+.clue {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  overflow: hidden;
+  animation: pop 0.4s ease both;
+}
+.clue:nth-child(2) { animation-delay: 0.1s; }
+.clue:nth-child(3) { animation-delay: 0.2s; }
+
+.clue .emoji { font-size: 4rem; }
+.clue img { width: 100%; height: 75%; object-fit: cover; border-radius: 10px; }
+.clue .caption { margin-top: 8px; font-size: 0.9rem; opacity: 0.85; }
+
+@keyframes pop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* Варианты ответа */
+.options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  transition: transform 0.15s, background 0.2s;
+}
+
+.option {
+  padding: 16px 10px;
+  background: rgba(255, 111, 181, 0.25);
+  border: 2px solid #ff6fb5;
+  font-size: 1rem;
+}
+.option:hover:not(:disabled) { transform: translateY(-3px); background: rgba(255, 111, 181, 0.45); }
+.option.correct { background: #2ecc71; border-color: #2ecc71; }
+.option.wrong   { background: #e63946; border-color: #e63946; }
+.option:disabled { cursor: default; }
+
+.big {
+  padding: 14px 40px;
+  font-size: 1.2rem;
+  background: linear-gradient(90deg, #ff6fb5, #c04bff);
+}
+.big:hover { transform: scale(1.05); }
+
+/* Вспышка (красный / зелёный свет) */
+#flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+}
+#flash.red   { animation: flashRed 1.2s ease; }
+#flash.green { animation: flashGreen 0.6s ease; }
+
+@keyframes flashRed {
+  0%, 40%, 80% { opacity: 0.75; background: radial-gradient(circle, #ff0000aa, #8b0000ee); }
+  20%, 60%, 100% { opacity: 0; background: radial-gradient(circle, #ff0000aa, #8b0000ee); }
+}
+@keyframes flashGreen {
+  0%   { opacity: 0.5; background: #2ecc71; }
+  100% { opacity: 0;   background: #2ecc71; }
+}
+
+@media (max-width: 600px) {
+  .clues, .options { grid-template-columns: 1fr; }
+  .clue { aspect-ratio: auto; min-height: 140px; }
+}
